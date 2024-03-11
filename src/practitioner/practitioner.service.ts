@@ -28,9 +28,17 @@ export class PractitionerService {
   async update(id: number, data: PractitionerDto): Promise<PractitionerDto> {
     return this.prisma.practitioner.update({
       where: { id },
-      data,
+      data: {
+        ...data,
+        dob: new Date(data.dob),
+      },
     });
   }
 
+  async delete(id:number): Promise<void>{
+    await this.prisma.practitioner.delete({
+      where:{id},
+    })
+  }
   
 }
